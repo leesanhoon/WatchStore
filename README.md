@@ -36,33 +36,41 @@ WatchStore/
 
 ## Cấu trúc cơ sở dữ liệu
 
-### Bảng Products (Đồng hồ)
+### Bảng Products (products)
 
 - Id (PK)
-- Name (tên đồng hồ)
-- Brand (thương hiệu)
-- Model (mã model)
-- Description (mô tả chi tiết)
-- Price (giá bán)
-- ImageUrl (đường dẫn hình ảnh)
-- Status (trạng thái: có sẵn/cần đặt hàng)
-- DeliveryTime (thời gian giao hàng dự kiến nếu cần đặt hàng)
-- CreatedAt
-- UpdatedAt
+- Name (VARCHAR(200), NOT NULL) - tên đồng hồ
+- BrandId (FK) - khóa ngoại tới bảng brands
+- Model (VARCHAR(100), NOT NULL) - mã model
+- Description (VARCHAR(2000)) - mô tả chi tiết
+- Price (DECIMAL(18,2)) - giá bán
+- ImageUrl (VARCHAR(500)) - đường dẫn hình ảnh
+- Status (ENUM: Available/PreOrder) - trạng thái
+- DeliveryTime (INTEGER) - số ngày giao hàng dự kiến
+- CreatedAt (TIMESTAMP)
+- UpdatedAt (TIMESTAMP)
 
-### Bảng Brands (Thương hiệu)
+### Bảng Brands (brands)
 
 - Id (PK)
-- Name (tên thương hiệu)
-- Description (mô tả)
-- ImageUrl (logo thương hiệu)
-- Status (Active/Inactive)
+- Name (VARCHAR(100), NOT NULL, UNIQUE) - tên thương hiệu
+- Description (VARCHAR(500)) - mô tả
+- ImageUrl (VARCHAR(500)) - logo thương hiệu
+- Status (BOOLEAN) - trạng thái hoạt động
+- CreatedAt (TIMESTAMP)
+- UpdatedAt (TIMESTAMP)
+
+### Relationships
+
+- Một Brand có nhiều Product (one-to-many)
+- Product phải thuộc về một Brand (required relationship)
+- Không cho phép xóa Brand khi còn Product liên kết (ON DELETE RESTRICT)
 
 ## Công nghệ sử dụng
 
-- .NET Core 8.0
-- Entity Framework Core
-- SQL Server
+- .NET Core 9.0
+- Entity Framework Core 9.0
+- PostgreSQL
 - Clean Architecture
 - REST API
 - Swagger/OpenAPI
@@ -78,11 +86,41 @@ WatchStore/
 ### Brands
 
 - GET /api/brands - Lấy danh sách thương hiệu
-- GET /api/brands/{id} - Lấy chi tiết thương hiệu
+- GET /api/brands/{id} - Lấy chi tiết thương hiệu và sản phẩm
 
 ## Hướng dẫn cài đặt
 
-(Sẽ được cập nhật sau khi hoàn thành dự án)
+1. Yêu cầu hệ thống:
+   - .NET SDK 9.0
+   - PostgreSQL 15 trở lên
+   - Visual Studio 2022 hoặc VS Code
+
+2. Cài đặt PostgreSQL:
+   ```bash
+   # Tạo database
+   createdb watchstore
+
+   # Hoặc sử dụng pgAdmin để tạo database
+   ```
+
+3. Cấu hình connection string:
+   - Mở file `src/WatchStore.API/appsettings.json`
+   - Cập nhật connection string phù hợp với môi trường
+
+4. Chạy migration:
+   ```bash
+   cd src/WatchStore.API
+   dotnet ef migrations add InitialCreate
+   dotnet ef database update
+   ```
+
+5. Chạy ứng dụng:
+   ```bash
+   dotnet run
+   ```
+
+6. Truy cập Swagger UI:
+   - http://localhost:5000/swagger
 
 ## Tác giả
 

@@ -64,7 +64,7 @@ namespace WatchStore.Infrastructure.Services
             {
                 Id = product.Id,
                 Name = product.Name,
-                Brand = product.Brand,
+                Brand = product.Brand.Name,
                 Model = product.Model,
                 Description = product.Description,
                 Price = product.Price,

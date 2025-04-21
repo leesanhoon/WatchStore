@@ -5,7 +5,8 @@ namespace WatchStore.Core.Domain.Entities
     public class Product : BaseEntity
     {
         public string Name { get; set; } = string.Empty;
-        public string Brand { get; set; } = string.Empty;
+        public int BrandId { get; set; }
+        public Brand Brand { get; set; } = null!;
         public string Model { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }

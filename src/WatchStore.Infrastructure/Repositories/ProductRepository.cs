@@ -48,7 +48,7 @@ namespace WatchStore.Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetByBrandAsync(string brand)
         {
             return await _context.Products
-                .Where(p => p.Brand == brand)
+                .Where(p => p.Brand.Name == brand)
                 .ToListAsync();
         }
 
@@ -60,8 +60,8 @@ namespace WatchStore.Infrastructure.Repositories
         }
 
         public async Task<IEnumerable<Product>> GetProductsWithPaginationAsync(
-            int pageNumber, 
-            int pageSize, 
+            int pageNumber,
+            int pageSize,
             string? brandFilter = null,
             string? sortBy = null)
         {
@@ -69,7 +69,7 @@ namespace WatchStore.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(brandFilter))
             {
-                query = query.Where(p => p.Brand == brandFilter);
+                query = query.Where(p => p.Brand.Name == brandFilter);
             }
 
             // Thêm logic sắp xếp
@@ -93,7 +93,7 @@ namespace WatchStore.Infrastructure.Repositories
 
             if (!string.IsNullOrWhiteSpace(brandFilter))
             {
-                query = query.Where(p => p.Brand == brandFilter);
+                query = query.Where(p => p.Brand.Name == brandFilter);
             }
 
             return await query.CountAsync();
