@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WatchStore.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f04d22998e45ddc3b722e693bbdd7ae6a8568aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("WatchStore.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WatchStore.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
